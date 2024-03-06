@@ -3,8 +3,8 @@
 file="${files}"
 secrets="${secrets}"
 excluded_keys=(${exclude_secret})
-
-yq eval $file -o yaml -P > secrets.yaml
+echo $secrets > secretos.json
+yq eval secretos.json -o yaml -P > secrets.yaml
 
 keys=$(echo "$secrets" | jq -r 'keys[]')
 values=$(echo "$secrets" | jq -r '.[]')
