@@ -12,6 +12,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     key=$(grep "^$line" secrets.yaml | cut -d ':' -f1)
     # Reemplazar el valor en el archivo original
     sed -i "s|__${key}__|${value}|g" "$file"
+    echo "La key es: $key"
+    echo "El value es: $value"
 done < secrets.yaml
 
 echo "cat del secrets.yaml"
