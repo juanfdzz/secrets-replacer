@@ -5,10 +5,10 @@ Allow you to replace GitHub secrets into configuration yaml files during runtime
 #### Basic usage
 ```yaml
 - name: Secrets replacement
-  uses: stemdo/actions/secrets-replacer-v1@main
+  uses: juanfdzz/secrets-replacer/actions/secrets-replacer-v1@main
   with:
     secrets: ${{ toJSON(secrets) }}
-    files: ${{ inputs.helm_values_file }}
+    files: values.yaml
     exclude_secret: "SECRET1 SECRET2 SECRET3"
 ```
 #### Features
