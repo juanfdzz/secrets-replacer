@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 file="${files}"
 secrets="${secrets}"
@@ -6,20 +7,22 @@ excluded_keys=(${exclude_secret})
 echo $secrets > secretos.json
 yq eval secretos.json -o yaml -P > secrets.yaml
 
-keys=$(echo "$secrets" | jq -r 'keys[]')
-values=$(echo "$secrets" | jq -r '.[]')
-
-while IFS= read -r key || [[ -n "$key" ]]; do
+while IFS= read -r line || [[ -n "$line" ]]; do
     # Obtener el valor correspondiente del archivo nuevo
-    value=$(grep "^$key:" secrets.yaml | cut -d' ' -f2-)
-
+    value=$(grep "^$line:" secrets.yaml | cut -d' ' -f2)
+    key=$(grep "^$line" secrets.yaml | cut -d ':' -f1)
     # Reemplazar el valor en el archivo original
     sed -i "s/__${key}__/${value}/g" "$file"
 done < secrets.yaml
+
 echo "cat del secrets.yaml"
 cat secrets.yaml
 echo "cat del archivo $file"
-echo $file
+cat $file
+
+
+# keys=$(echo "$secrets" | jq -r 'keys[]')
+# values=$(echo "$secrets" | jq -r '.[]')
 # # Iterar sobre las claves y valores
 # for key in $keys; do
 
