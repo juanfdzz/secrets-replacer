@@ -3,7 +3,7 @@
 file="${files}"
 secrets="${secrets}"
 excluded_keys=(${exclude_secret})
-echo $secrets > secretos.json
+echo "$secrets" > secretos.json
 yq eval secretos.json -o yaml -P > secrets.yaml
 
 while IFS= read -r line || [[ -n "$line" ]]; do
@@ -11,7 +11,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     value=$(grep "^$line:" secrets.yaml | cut -d' ' -f2)
     key=$(grep "^$line" secrets.yaml | cut -d ':' -f1)
     # Reemplazar el valor en el archivo original
-    sed -i "s/__${key}__/${value}/g" "$file"
+    sed -i "s|__${key}__|${value}|g" "$file"
 done < secrets.yaml
 
 echo "cat del secrets.yaml"
