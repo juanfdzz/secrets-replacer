@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 file="${files}"
 secrets="${secrets}"
