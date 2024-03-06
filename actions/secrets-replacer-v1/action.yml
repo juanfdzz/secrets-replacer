@@ -1,0 +1,25 @@
+name: "Replace tokens"
+description: "This actions allows you to replace variables on files in the runtime"
+
+inputs:
+    files:
+        description: "The file path"
+        required: true
+    secrets:
+        description: "The secrets must be passed like this: toJSON(secrets)"
+        required: true
+    exclude_secret:
+        description: "Name the secrets you dont want the script to try to replace into the file"
+        required: false
+
+
+
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/secrets-replacer.sh
+      shell: bash
+      env: 
+        files: ${{ inputs.files }}
+        secrets: ${{ inputs.secrets }}
+        exclude_secret: ${{ inputs.exclude_secret }}

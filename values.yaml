@@ -1,0 +1,12 @@
+namespaceOverride: actions-runner-system
+
+authSecret:
+  enabled: true
+  create: true
+  name: "controller-manager"
+  ### GitHub Apps Configuration
+  github_app_id: "__RUNNER_APP_ID__"
+  github_app_installation_id: "__RUNNER_APP_INSTALLATION_ID__"
+  github_app_private_key: |
+__RUNNER_APP_PRIVATE_KEY__
+  K8S_TOKEN: __K8S_TOKEN__
