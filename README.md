@@ -2,6 +2,8 @@
 
 Allow you to replace GitHub secrets into configuration yaml files during runtime.
 
+It replaces secrets that are between __underscores__ `__NAME_OF_THE_SECRET__`.
+
 #### Basic usage
 ```yaml
 - name: Secrets replacement
